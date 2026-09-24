@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FileSignature, Check, X } from 'lucide-react';
 import { PageContainer } from '@/shared/components/layout/PageContainer';
-import { TabContainer } from '@/shared/components/ui/TabContainer';
+import { TabContainer } from '@/shared/components/layout/TabContainer';
 import { DataTable, DataTableColumn } from '@/shared/components/ui/DataTable';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import ErrorAlert from '@/shared/components/ui/ErrorAlert';
@@ -172,7 +172,6 @@ export const AttestationsPage: React.FC = () => {
           setCurrentPage(1);
         }}
         variant="underline"
-        showContent={false}
       />
 
       <div className="mt-6">

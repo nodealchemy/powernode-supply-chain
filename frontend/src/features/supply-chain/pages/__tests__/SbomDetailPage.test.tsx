@@ -51,9 +51,13 @@ jest.mock('@/shared/components/layout/PageContainer', () => ({
   ),
 }));
 
-// Mock TabContainer
-jest.mock('@/shared/components/ui/TabContainer', () => ({
-  TabContainer: ({ tabs, activeTab, onTabChange }: any) => (
+// Mock TabContainer. The shared layout component's `badge` is
+// `{ count, variant? }` (the deprecated variant this used to import had a
+// bare string|number) and content is supplied via `renderContent(activeTab)`,
+// not a per-tab `content` field — this stub calls renderContent itself so
+// tests asserting on the active tab's body still see it.
+jest.mock('@/shared/components/layout/TabContainer', () => ({
+  TabContainer: ({ tabs, activeTab, onTabChange, renderContent }: any) => (
     <div data-testid="tab-container">
       {tabs.map((tab: any) => (
         <button
@@ -63,11 +67,11 @@ jest.mock('@/shared/components/ui/TabContainer', () => ({
           className={activeTab === tab.id ? 'active' : ''}
         >
           {tab.label}
-          {tab.badge !== undefined && <span data-testid={`badge-${tab.id}`}>{tab.badge}</span>}
+          {tab.badge !== undefined && <span data-testid={`badge-${tab.id}`}>{tab.badge.count}</span>}
         </button>
       ))}
       <div data-testid="tab-content">
-        {tabs.find((t: any) => t.id === activeTab)?.content}
+        {renderContent?.(activeTab)}
       </div>
     </div>
   ),

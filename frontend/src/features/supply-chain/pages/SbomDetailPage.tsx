@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { RefreshCw, Trash2, Package, AlertTriangle, CheckCircle, XCircle, GitCompare, Shield, Calculator } from 'lucide-react';
 import { PageContainer } from '@/shared/components/layout/PageContainer';
 import { PageErrorBoundary } from '@/shared/components/error/ErrorBoundary';
-import { TabContainer } from '@/shared/components/ui/TabContainer';
+import { TabContainer } from '@/shared/components/layout/TabContainer';
 import { DataTable } from '@/shared/components/ui/DataTable';
 import { Badge } from '@/shared/components/ui/Badge';
 import { Button } from '@/shared/components/ui/Button';
@@ -505,254 +505,248 @@ const SbomDetailPageContent: React.FC = () => {
   ];
 
   const tabs = [
-    {
-      id: 'overview',
-      label: 'Overview',
-      content: (
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-theme-surface rounded-lg p-4 border border-theme">
-              <div className="flex items-center gap-2 text-theme-secondary mb-1">
-                <Package className="w-4 h-4" />
-                <span className="text-sm">Components</span>
-              </div>
-              <p className="text-2xl font-bold text-theme-primary">{sbom.component_count}</p>
-            </div>
-            <div className="bg-theme-surface rounded-lg p-4 border border-theme">
-              <div className="flex items-center gap-2 text-theme-error-fg mb-1">
-                <AlertTriangle className="w-4 h-4" />
-                <span className="text-sm">Vulnerabilities</span>
-              </div>
-              <p className="text-2xl font-bold text-theme-error-fg">{sbom.vulnerability_count}</p>
-            </div>
-            <div className="bg-theme-surface rounded-lg p-4 border border-theme">
-              <div className="flex items-center gap-2 text-theme-warning-fg mb-1">
-                <span className="text-sm">Risk Score</span>
-              </div>
-              <p className="text-2xl font-bold text-theme-warning-fg">{sbom.risk_score.toFixed(1)}</p>
-            </div>
-            <div className="bg-theme-surface rounded-lg p-4 border border-theme">
-              <div className="flex items-center gap-2 text-theme-secondary mb-1">
-                <span className="text-sm">NTIA Compliant</span>
-              </div>
-              <div className="flex items-center gap-2">
-                {sbom.ntia_minimum_compliant ? (
-                  <>
-                    <CheckCircle className="w-6 h-6 text-theme-success-fg" />
-                    <span className="text-lg font-medium text-theme-success-fg">Yes</span>
-                  </>
-                ) : (
-                  <>
-                    <XCircle className="w-6 h-6 text-theme-error-fg" />
-                    <span className="text-lg font-medium text-theme-error-fg">No</span>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-theme-surface rounded-lg p-6 border border-theme space-y-4">
-            <h3 className="text-lg font-medium text-theme-primary">Details</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <span className="text-sm text-theme-secondary">Format:</span>
-                <p className="text-theme-primary">{sbom.format.toUpperCase()}</p>
-              </div>
-              <div>
-                <span className="text-sm text-theme-secondary">Version:</span>
-                <p className="text-theme-primary">{sbom.version}</p>
-              </div>
-              <div>
-                <span className="text-sm text-theme-secondary">Status:</span>
-                <div className="mt-1">
-                  <StatusBadge status={sbom.status} />
-                </div>
-              </div>
-              <div>
-                <span className="text-sm text-theme-secondary">SBOM ID:</span>
-                <p className="text-theme-primary font-mono text-sm">{sbom.sbom_id}</p>
-              </div>
-              {sbom.repository && (
-                <div>
-                  <span className="text-sm text-theme-secondary">Repository:</span>
-                  <p className="text-theme-primary">{sbom.repository.full_name}</p>
-                </div>
-              )}
-              {sbom.branch && (
-                <div>
-                  <span className="text-sm text-theme-secondary">Branch:</span>
-                  <p className="text-theme-primary">{sbom.branch}</p>
-                </div>
-              )}
-              {sbom.commit_sha && (
-                <div>
-                  <span className="text-sm text-theme-secondary">Commit:</span>
-                  <p className="text-theme-primary font-mono text-sm">{sbom.commit_sha.substring(0, 12)}</p>
-                </div>
-              )}
-              <div>
-                <span className="text-sm text-theme-secondary">Created:</span>
-                <p className="text-theme-primary">{new Date(sbom.created_at).toLocaleString()}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: 'components',
-      label: 'Components',
-      badge: sbom.component_count,
-      content: (
-        <div className="space-y-4">
-          <div className="flex items-center gap-4">
-            <select
-              value={ecosystemFilter}
-              onChange={(e) => {
-                setEcosystemFilter(e.target.value);
-                setComponentsPage(1);
-              }}
-              className="px-3 py-2 bg-theme-surface border border-theme rounded-lg text-theme-primary"
-            >
-              <option value="">All Ecosystems</option>
-              <option value="npm">NPM</option>
-              <option value="pypi">PyPI</option>
-              <option value="gem">RubyGems</option>
-              <option value="maven">Maven</option>
-            </select>
-          </div>
-          <DataTable
-            columns={componentColumns}
-            data={components}
-            loading={componentsLoading}
-            pagination={componentsPagination || undefined}
-            onPageChange={setComponentsPage}
-            emptyState={{
-              icon: Package,
-              title: 'No Components Found',
-              description: 'No components match your current filters.',
-            }}
-          />
-        </div>
-      ),
-    },
-    {
-      id: 'vulnerabilities',
-      label: 'Vulnerabilities',
-      badge: sbom.vulnerability_count,
-      content: (
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <select
-              value={severityFilter}
-              onChange={(e) => {
-                setSeverityFilter(e.target.value as Severity | '');
-                setVulnerabilitiesPage(1);
-              }}
-              className="px-3 py-2 bg-theme-surface border border-theme rounded-lg text-theme-primary"
-            >
-              <option value="">All Severities</option>
-              <option value="critical">Critical</option>
-              <option value="high">High</option>
-              <option value="medium">Medium</option>
-              <option value="low">Low</option>
-            </select>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={handleCalculateRisk}
-                disabled={calculateRiskMutation.isLoading}
-              >
-                <Calculator className="w-4 h-4 mr-1" />
-                {calculateRiskMutation.isLoading ? 'Calculating...' : 'Calculate Risk'}
-              </Button>
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={handleCorrelateVulns}
-                disabled={correlateVulnsMutation.isLoading}
-              >
-                <RefreshCw className="w-4 h-4 mr-1" />
-                {correlateVulnsMutation.isLoading ? 'Correlating...' : 'Correlate'}
-              </Button>
-            </div>
-          </div>
-          <DataTable
-            columns={vulnerabilityColumns}
-            data={vulnerabilities}
-            loading={vulnerabilitiesLoading}
-            pagination={vulnerabilitiesPagination || undefined}
-            onPageChange={setVulnerabilitiesPage}
-            emptyState={{
-              icon: CheckCircle,
-              title: 'No Vulnerabilities Found',
-              description: 'No vulnerabilities detected in this SBOM.',
-            }}
-          />
-        </div>
-      ),
-    },
-    {
-      id: 'compliance',
-      label: 'Compliance',
-      content: complianceLoading ? (
-        <div className="flex justify-center py-12">
-          <LoadingSpinner size="lg" />
-        </div>
-      ) : compliance ? (
-        <ComplianceStatusCard compliance={compliance} />
-      ) : (
-        <div className="text-center py-12 text-theme-tertiary">
-          <Shield className="w-12 h-12 mx-auto mb-4 opacity-50" />
-          <p>Compliance data not available</p>
-        </div>
-      ),
-    },
-    {
-      id: 'diffs',
-      label: 'Diff History',
-      badge: diffs.length,
-      content: (
-        <div className="space-y-4">
-          <div className="flex justify-end">
-            <Button variant="primary" size="sm" onClick={() => setShowDiffModal(true)}>
-              <GitCompare className="w-4 h-4 mr-1" />
-              Create Diff
-            </Button>
-          </div>
-          {diffs.length === 0 ? (
-            <div className="text-center py-12 text-theme-tertiary">
-              <GitCompare className="w-12 h-12 mx-auto mb-4 opacity-50" />
-              <p>No diffs created yet</p>
-              <p className="text-sm mt-2">Compare this SBOM with another version to track changes</p>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {diffs.map((diff) => (
-                <button
-                  key={diff.id}
-                  onClick={() => navigate(`/app/supply-chain/sboms/${id}/diff/${diff.id}`)}
-                  className="w-full p-4 bg-theme-surface border border-theme rounded-lg hover:border-theme-interactive-primary transition-colors text-left"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <span className="text-theme-success-fg">+{diff.added_count}</span>
-                      <span className="text-theme-error-fg">-{diff.removed_count}</span>
-                      <span className="text-theme-warning-fg">~{diff.changed_count}</span>
-                    </div>
-                    <span className="text-sm text-theme-secondary">
-                      {new Date(diff.created_at).toLocaleDateString()}
-                    </span>
-                  </div>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      ),
-    },
+    { id: 'overview', label: 'Overview' },
+    { id: 'components', label: 'Components', badge: { count: sbom.component_count } },
+    { id: 'vulnerabilities', label: 'Vulnerabilities', badge: { count: sbom.vulnerability_count } },
+    { id: 'compliance', label: 'Compliance' },
+    { id: 'diffs', label: 'Diff History', badge: { count: diffs.length } },
   ];
+
+  const renderTabContent = (tabId: string) => {
+    switch (tabId) {
+      case 'overview':
+        return (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="bg-theme-surface rounded-lg p-4 border border-theme">
+                <div className="flex items-center gap-2 text-theme-secondary mb-1">
+                  <Package className="w-4 h-4" />
+                  <span className="text-sm">Components</span>
+                </div>
+                <p className="text-2xl font-bold text-theme-primary">{sbom.component_count}</p>
+              </div>
+              <div className="bg-theme-surface rounded-lg p-4 border border-theme">
+                <div className="flex items-center gap-2 text-theme-error-fg mb-1">
+                  <AlertTriangle className="w-4 h-4" />
+                  <span className="text-sm">Vulnerabilities</span>
+                </div>
+                <p className="text-2xl font-bold text-theme-error-fg">{sbom.vulnerability_count}</p>
+              </div>
+              <div className="bg-theme-surface rounded-lg p-4 border border-theme">
+                <div className="flex items-center gap-2 text-theme-warning-fg mb-1">
+                  <span className="text-sm">Risk Score</span>
+                </div>
+                <p className="text-2xl font-bold text-theme-warning-fg">{sbom.risk_score.toFixed(1)}</p>
+              </div>
+              <div className="bg-theme-surface rounded-lg p-4 border border-theme">
+                <div className="flex items-center gap-2 text-theme-secondary mb-1">
+                  <span className="text-sm">NTIA Compliant</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  {sbom.ntia_minimum_compliant ? (
+                    <>
+                      <CheckCircle className="w-6 h-6 text-theme-success-fg" />
+                      <span className="text-lg font-medium text-theme-success-fg">Yes</span>
+                    </>
+                  ) : (
+                    <>
+                      <XCircle className="w-6 h-6 text-theme-error-fg" />
+                      <span className="text-lg font-medium text-theme-error-fg">No</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-theme-surface rounded-lg p-6 border border-theme space-y-4">
+              <h3 className="text-lg font-medium text-theme-primary">Details</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <span className="text-sm text-theme-secondary">Format:</span>
+                  <p className="text-theme-primary">{sbom.format.toUpperCase()}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-theme-secondary">Version:</span>
+                  <p className="text-theme-primary">{sbom.version}</p>
+                </div>
+                <div>
+                  <span className="text-sm text-theme-secondary">Status:</span>
+                  <div className="mt-1">
+                    <StatusBadge status={sbom.status} />
+                  </div>
+                </div>
+                <div>
+                  <span className="text-sm text-theme-secondary">SBOM ID:</span>
+                  <p className="text-theme-primary font-mono text-sm">{sbom.sbom_id}</p>
+                </div>
+                {sbom.repository && (
+                  <div>
+                    <span className="text-sm text-theme-secondary">Repository:</span>
+                    <p className="text-theme-primary">{sbom.repository.full_name}</p>
+                  </div>
+                )}
+                {sbom.branch && (
+                  <div>
+                    <span className="text-sm text-theme-secondary">Branch:</span>
+                    <p className="text-theme-primary">{sbom.branch}</p>
+                  </div>
+                )}
+                {sbom.commit_sha && (
+                  <div>
+                    <span className="text-sm text-theme-secondary">Commit:</span>
+                    <p className="text-theme-primary font-mono text-sm">{sbom.commit_sha.substring(0, 12)}</p>
+                  </div>
+                )}
+                <div>
+                  <span className="text-sm text-theme-secondary">Created:</span>
+                  <p className="text-theme-primary">{new Date(sbom.created_at).toLocaleString()}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      case 'components':
+        return (
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <select
+                value={ecosystemFilter}
+                onChange={(e) => {
+                  setEcosystemFilter(e.target.value);
+                  setComponentsPage(1);
+                }}
+                className="px-3 py-2 bg-theme-surface border border-theme rounded-lg text-theme-primary"
+              >
+                <option value="">All Ecosystems</option>
+                <option value="npm">NPM</option>
+                <option value="pypi">PyPI</option>
+                <option value="gem">RubyGems</option>
+                <option value="maven">Maven</option>
+              </select>
+            </div>
+            <DataTable
+              columns={componentColumns}
+              data={components}
+              loading={componentsLoading}
+              pagination={componentsPagination || undefined}
+              onPageChange={setComponentsPage}
+              emptyState={{
+                icon: Package,
+                title: 'No Components Found',
+                description: 'No components match your current filters.',
+              }}
+            />
+          </div>
+        );
+      case 'vulnerabilities':
+        return (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <select
+                value={severityFilter}
+                onChange={(e) => {
+                  setSeverityFilter(e.target.value as Severity | '');
+                  setVulnerabilitiesPage(1);
+                }}
+                className="px-3 py-2 bg-theme-surface border border-theme rounded-lg text-theme-primary"
+              >
+                <option value="">All Severities</option>
+                <option value="critical">Critical</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={handleCalculateRisk}
+                  disabled={calculateRiskMutation.isLoading}
+                >
+                  <Calculator className="w-4 h-4 mr-1" />
+                  {calculateRiskMutation.isLoading ? 'Calculating...' : 'Calculate Risk'}
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={handleCorrelateVulns}
+                  disabled={correlateVulnsMutation.isLoading}
+                >
+                  <RefreshCw className="w-4 h-4 mr-1" />
+                  {correlateVulnsMutation.isLoading ? 'Correlating...' : 'Correlate'}
+                </Button>
+              </div>
+            </div>
+            <DataTable
+              columns={vulnerabilityColumns}
+              data={vulnerabilities}
+              loading={vulnerabilitiesLoading}
+              pagination={vulnerabilitiesPagination || undefined}
+              onPageChange={setVulnerabilitiesPage}
+              emptyState={{
+                icon: CheckCircle,
+                title: 'No Vulnerabilities Found',
+                description: 'No vulnerabilities detected in this SBOM.',
+              }}
+            />
+          </div>
+        );
+      case 'compliance':
+        return complianceLoading ? (
+          <div className="flex justify-center py-12">
+            <LoadingSpinner size="lg" />
+          </div>
+        ) : compliance ? (
+          <ComplianceStatusCard compliance={compliance} />
+        ) : (
+          <div className="text-center py-12 text-theme-tertiary">
+            <Shield className="w-12 h-12 mx-auto mb-4 opacity-50" />
+            <p>Compliance data not available</p>
+          </div>
+        );
+      case 'diffs':
+        return (
+          <div className="space-y-4">
+            <div className="flex justify-end">
+              <Button variant="primary" size="sm" onClick={() => setShowDiffModal(true)}>
+                <GitCompare className="w-4 h-4 mr-1" />
+                Create Diff
+              </Button>
+            </div>
+            {diffs.length === 0 ? (
+              <div className="text-center py-12 text-theme-tertiary">
+                <GitCompare className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                <p>No diffs created yet</p>
+                <p className="text-sm mt-2">Compare this SBOM with another version to track changes</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {diffs.map((diff) => (
+                  <button
+                    key={diff.id}
+                    onClick={() => navigate(`/app/supply-chain/sboms/${id}/diff/${diff.id}`)}
+                    className="w-full p-4 bg-theme-surface border border-theme rounded-lg hover:border-theme-interactive-primary transition-colors text-left"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <span className="text-theme-success-fg">+{diff.added_count}</span>
+                        <span className="text-theme-error-fg">-{diff.removed_count}</span>
+                        <span className="text-theme-warning-fg">~{diff.changed_count}</span>
+                      </div>
+                      <span className="text-sm text-theme-secondary">
+                        {new Date(diff.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <PageContainer title={sbom.name} breadcrumbs={breadcrumbs} actions={actions}>
@@ -767,7 +761,13 @@ const SbomDetailPageContent: React.FC = () => {
           <ExportFormatDropdown onExport={handleExport} />
         </div>
 
-        <TabContainer tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} variant="underline" />
+        <TabContainer
+          tabs={tabs}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          variant="underline"
+          renderContent={renderTabContent}
+        />
       </div>
       {ConfirmationDialog}
       {showDiffModal && (

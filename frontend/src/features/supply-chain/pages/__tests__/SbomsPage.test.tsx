@@ -38,7 +38,7 @@ jest.mock('@/shared/components/layout/PageContainer', () => ({
 }));
 
 // Mock TabContainer
-jest.mock('@/shared/components/ui/TabContainer', () => ({
+jest.mock('@/shared/components/layout/TabContainer', () => ({
   TabContainer: ({ tabs, activeTab, onTabChange }: any) => (
     <div data-testid="tab-container">
       {tabs.map((tab: any) => (

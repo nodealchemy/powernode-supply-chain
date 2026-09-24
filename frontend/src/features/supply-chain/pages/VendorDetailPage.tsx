@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Edit, PlayCircle, Send, ExternalLink, Shield, FileText, Database, CheckCircle, AlertCircle, Eye } from 'lucide-react';
 import { PageContainer } from '@/shared/components/layout/PageContainer';
-import { TabContainer } from '@/shared/components/ui/TabContainer';
+import { TabContainer } from '@/shared/components/layout/TabContainer';
 import { RiskTierBadge } from '../components/shared/RiskTierBadge';
 import { StatusBadge } from '../components/shared/StatusBadge';
 import { Badge } from '@/shared/components/ui/Badge';
@@ -84,9 +84,9 @@ export const VendorDetailPage: React.FC = () => {
   const tabs = [
     { id: 'overview', label: 'Overview' },
     { id: 'documents', label: 'Documents' },
-    { id: 'assessments', label: 'Assessments', badge: vendor.assessments?.length || 0 },
-    { id: 'questionnaires', label: 'Questionnaires', badge: vendor.questionnaires?.length || 0 },
-    { id: 'monitoring', label: 'Monitoring Events', badge: vendor.monitoring_events?.length || 0 },
+    { id: 'assessments', label: 'Assessments', badge: { count: vendor.assessments?.length || 0 } },
+    { id: 'questionnaires', label: 'Questionnaires', badge: { count: vendor.questionnaires?.length || 0 } },
+    { id: 'monitoring', label: 'Monitoring Events', badge: { count: vendor.monitoring_events?.length || 0 } },
   ];
 
   const renderOverview = () => (
@@ -422,7 +422,7 @@ export const VendorDetailPage: React.FC = () => {
         </div>
       </div>
 
-      <TabContainer tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} variant="underline" showContent={false} />
+      <TabContainer tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} variant="underline" />
         <div className="mt-6">
           {activeTab === 'overview' && renderOverview()}
           {activeTab === 'documents' && <VendorDocumentsPanel vendorId={vendor.id} vendorName={vendor.name} />}

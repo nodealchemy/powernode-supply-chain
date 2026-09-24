@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { RefreshCw, FileText, Trash2, CheckCircle, XCircle } from 'lucide-react';
 import { PageContainer } from '@/shared/components/layout/PageContainer';
 import { PageErrorBoundary } from '@/shared/components/error/ErrorBoundary';
-import { TabContainer } from '@/shared/components/ui/TabContainer';
+import { TabContainer } from '@/shared/components/layout/TabContainer';
 import { DataTable } from '@/shared/components/ui/DataTable';
 import { Badge } from '@/shared/components/ui/Badge';
 import { useNotifications } from '@/shared/hooks/useNotifications';
@@ -199,26 +199,10 @@ const SbomsPageContent: React.FC = () => {
   ];
 
   const tabs = [
-    {
-      id: 'all',
-      label: 'All',
-      content: null,
-    },
-    {
-      id: 'completed',
-      label: 'Completed',
-      content: null,
-    },
-    {
-      id: 'generating',
-      label: 'Generating',
-      content: null,
-    },
-    {
-      id: 'failed',
-      label: 'Failed',
-      content: null,
-    },
+    { id: 'all', label: 'All' },
+    { id: 'completed', label: 'Completed' },
+    { id: 'generating', label: 'Generating' },
+    { id: 'failed', label: 'Failed' },
   ];
 
   const activeTab = statusFilter || 'all';
@@ -241,7 +225,6 @@ const SbomsPageContent: React.FC = () => {
           activeTab={activeTab}
           onTabChange={handleTabChange}
           variant="underline"
-          showContent={false}
         />
 
         <DataTable

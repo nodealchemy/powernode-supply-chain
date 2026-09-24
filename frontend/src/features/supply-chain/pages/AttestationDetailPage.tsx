@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { ShieldCheck, Download, BookOpen, History, Key } from 'lucide-react';
 import { PageContainer } from '@/shared/components/layout/PageContainer';
-import { TabContainer } from '@/shared/components/ui/TabContainer';
+import { TabContainer } from '@/shared/components/layout/TabContainer';
 import { LoadingSpinner } from '@/shared/components/ui/LoadingSpinner';
 import ErrorAlert from '@/shared/components/ui/ErrorAlert';
 import { Card } from '@/shared/components/ui/Card';
@@ -408,7 +408,6 @@ export const AttestationDetailPage: React.FC = () => {
           navigate(path);
         }}
         variant="underline"
-        showContent={false}
       />
 
       <div className="mt-6">
