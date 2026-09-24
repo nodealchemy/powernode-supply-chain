@@ -198,7 +198,7 @@ describe('ActivityFeed', () => {
       const icon = screen.getByTestId('file-code-icon');
       expect(icon).toHaveClass('w-4');
       expect(icon).toHaveClass('h-4');
-      expect(icon).toHaveClass('text-theme-primary');
+      expect(icon).toHaveClass('text-theme-interactive-primary');
     });
 
     it('icon is centered in its container', () => {

@@ -622,7 +622,7 @@ describe('sbomsApi', () => {
       const result = await sbomsApi.markFalsePositive('123', 'vuln-1', 'Not applicable to our use case');
 
       expect(mockApiClient.post).toHaveBeenCalledWith(
-        '/supply_chain/sboms/123/vulnerabilities/vuln-1/false_positive',
+        '/supply_chain/sboms/123/vulnerabilities/vuln-1/mark_false_positive',
         { reason: 'Not applicable to our use case' }
       );
       expect(result).toEqual(mockResponse.data.data.vulnerability);
@@ -713,7 +713,7 @@ describe('sbomsApi', () => {
 
       const result = await sbomsApi.getComplianceStatus('123');
 
-      expect(mockApiClient.get).toHaveBeenCalledWith('/supply_chain/sboms/123/compliance');
+      expect(mockApiClient.get).toHaveBeenCalledWith('/supply_chain/sboms/123/compliance_status');
       expect(result).toEqual(mockResponse.data.data.compliance);
       expect(result.ntia_minimum_compliant).toBe(true);
       expect(result.completeness_score).toBe(95.5);

@@ -426,7 +426,7 @@ describe('PolicyViolationsList', () => {
         <PolicyViolationsList evaluations={mockEvaluations} loading={false} />
       );
 
-      const criticalViolation = document.querySelector('.bg-theme-error-bg\\/10');
+      const criticalViolation = document.querySelector('.bg-theme-error-bg');
       expect(criticalViolation).toBeInTheDocument();
     });
 
@@ -435,7 +435,7 @@ describe('PolicyViolationsList', () => {
         <PolicyViolationsList evaluations={mockEvaluations} loading={false} />
       );
 
-      const highViolations = document.querySelectorAll('.bg-theme-error-bg\\/10');
+      const highViolations = document.querySelectorAll('.bg-theme-error-bg');
       expect(highViolations.length).toBeGreaterThan(0);
     });
 

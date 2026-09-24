@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { ContainerImageDetailPage } from '../ContainerImageDetailPage';
 import {
   useContainerImage,
@@ -187,9 +187,9 @@ describe('ContainerImageDetailPage', () => {
       });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
@@ -224,9 +224,9 @@ describe('ContainerImageDetailPage', () => {
       });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.queryByTestId('loading-spinner')).not.toBeInTheDocument();
@@ -261,9 +261,9 @@ describe('ContainerImageDetailPage', () => {
       });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByTestId('error-alert')).toBeInTheDocument();
@@ -297,9 +297,9 @@ describe('ContainerImageDetailPage', () => {
       });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByTestId('error-alert')).toBeInTheDocument();
@@ -333,9 +333,9 @@ describe('ContainerImageDetailPage', () => {
       });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByTestId('breadcrumb-0')).toHaveTextContent('Dashboard');
@@ -391,9 +391,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders page title with repository and tag', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByTestId('page-title')).toHaveTextContent('org/app:v1.2.3');
@@ -401,9 +401,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders page description with registry', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByTestId('page-description')).toHaveTextContent('Registry: ghcr.io');
@@ -411,9 +411,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders breadcrumbs with image name', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByTestId('breadcrumb-0')).toHaveTextContent('Dashboard');
@@ -424,9 +424,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders status badge', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       const statusBadges = screen.getAllByTestId('status-badge');
@@ -435,9 +435,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders deployed badge when is_deployed is true', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       const deployedBadges = screen.getAllByTestId('badge-success');
@@ -456,9 +456,9 @@ describe('ContainerImageDetailPage', () => {
       });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.queryByTestId('badge-success')).not.toBeInTheDocument();
@@ -497,9 +497,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders all tabs', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByTestId('tab-overview')).toHaveTextContent('Overview');
@@ -510,9 +510,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('shows overview tab as active by default', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByTestId('tab-overview')).toHaveAttribute('data-active', 'true');
@@ -520,9 +520,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('changes to vulnerabilities tab when clicked', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('tab-vulnerabilities'));
@@ -531,9 +531,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('changes to sbom tab when clicked', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('tab-sbom'));
@@ -542,9 +542,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('changes to policies tab when clicked', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('tab-policies'));
@@ -607,9 +607,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders image details card', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByText('Image Details')).toBeInTheDocument();
@@ -621,9 +621,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders vulnerability summary card with four severity boxes', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByText('Vulnerability Summary')).toBeInTheDocument();
@@ -639,9 +639,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders scan history when scans exist', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByText('Scan History')).toBeInTheDocument();
@@ -658,9 +658,9 @@ describe('ContainerImageDetailPage', () => {
       });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.queryByText('Scan History')).not.toBeInTheDocument();
@@ -668,9 +668,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('displays formatted dates', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       // Should not show "Never" since dates are provided
@@ -688,9 +688,9 @@ describe('ContainerImageDetailPage', () => {
       });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByText('Never')).toBeInTheDocument();
@@ -740,9 +740,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders vulnerabilities table', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('tab-vulnerabilities'));
@@ -753,9 +753,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('passes vulnerabilities to table component', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('tab-vulnerabilities'));
@@ -773,9 +773,9 @@ describe('ContainerImageDetailPage', () => {
       });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('tab-vulnerabilities'));
@@ -825,9 +825,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders SBOM viewer', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('tab-sbom'));
@@ -845,9 +845,9 @@ describe('ContainerImageDetailPage', () => {
       });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('tab-sbom'));
@@ -864,9 +864,9 @@ describe('ContainerImageDetailPage', () => {
       });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('tab-sbom'));
@@ -908,9 +908,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders policy violations list', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('tab-policies'));
@@ -920,9 +920,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders evaluate policies button', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('tab-policies'));
@@ -934,9 +934,9 @@ describe('ContainerImageDetailPage', () => {
       mockEvaluatePolicies.mockResolvedValue({ violations: [] });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('tab-policies'));
@@ -951,9 +951,9 @@ describe('ContainerImageDetailPage', () => {
       mockEvaluatePolicies.mockResolvedValue({ violations: [] });
 
       const { rerender } = render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('tab-policies'));
@@ -965,9 +965,9 @@ describe('ContainerImageDetailPage', () => {
 
       // Simulate state update after evaluation
       rerender(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       // Note: In actual implementation, policy results would be displayed
@@ -1009,9 +1009,9 @@ describe('ContainerImageDetailPage', () => {
 
     it('renders all action buttons', () => {
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       expect(screen.getByTestId('action-rescan')).toBeInTheDocument();
@@ -1023,9 +1023,9 @@ describe('ContainerImageDetailPage', () => {
       mockContainerImagesApi.scan.mockResolvedValue({} as any);
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('action-rescan'));
@@ -1039,9 +1039,9 @@ describe('ContainerImageDetailPage', () => {
       mockContainerImagesApi.scan.mockResolvedValue({} as any);
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('action-rescan'));
@@ -1055,9 +1055,9 @@ describe('ContainerImageDetailPage', () => {
       mockContainerImagesApi.verify.mockResolvedValue({} as any);
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('action-verify'));
@@ -1071,9 +1071,9 @@ describe('ContainerImageDetailPage', () => {
       mockContainerImagesApi.verify.mockResolvedValue({} as any);
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('action-verify'));
@@ -1093,9 +1093,9 @@ describe('ContainerImageDetailPage', () => {
       });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       const verifyButton = screen.getByTestId('action-verify') as HTMLButtonElement;
@@ -1107,9 +1107,9 @@ describe('ContainerImageDetailPage', () => {
       mockContainerImagesApi.quarantine.mockResolvedValue({} as any);
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('action-quarantine'));
@@ -1122,9 +1122,9 @@ describe('ContainerImageDetailPage', () => {
       mockContainerImagesApi.quarantine.mockResolvedValue({} as any);
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('action-quarantine'));
@@ -1141,9 +1141,9 @@ describe('ContainerImageDetailPage', () => {
       (window.prompt as jest.Mock).mockReturnValue(null);
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('action-quarantine'));
@@ -1157,9 +1157,9 @@ describe('ContainerImageDetailPage', () => {
       (window.prompt as jest.Mock).mockReturnValue('');
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('action-quarantine'));
@@ -1179,9 +1179,9 @@ describe('ContainerImageDetailPage', () => {
       });
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       const quarantineButton = screen.getByTestId('action-quarantine') as HTMLButtonElement;
@@ -1194,9 +1194,9 @@ describe('ContainerImageDetailPage', () => {
       );
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <ContainerImageDetailPage />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       fireEvent.click(screen.getByTestId('action-rescan'));

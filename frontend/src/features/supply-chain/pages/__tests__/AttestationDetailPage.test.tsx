@@ -126,7 +126,7 @@ describe('AttestationDetailPage', () => {
     return render(
       <MemoryRouter initialEntries={[`/app/supply-chain/attestations/${attestationId}`]}>
         <Routes>
-          <Route path="/app/supply-chain/attestations/:id" element={<AttestationDetailPage />} />
+          <Route path="/app/supply-chain/attestations/:id/*" element={<AttestationDetailPage />} />
         </Routes>
       </MemoryRouter>
     );
