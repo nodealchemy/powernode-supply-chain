@@ -53,7 +53,6 @@ export function register(): void {
     { path: '/supply-chain/vendors/:id/assessments/:assessmentId', component: AssessmentDetailPage, permission: 'supply_chain.read' },
     { path: '/supply-chain/vendors/:id/questionnaires/:questionnaireId', component: QuestionnaireDetailPage, permission: 'supply_chain.read' },
     { path: '/supply-chain/licenses', component: LicensePoliciesPage, permission: 'supply_chain.read' },
-    { path: '/supply-chain/licenses/policies', component: LicensePoliciesPage, permission: 'supply_chain.read' },
     { path: '/supply-chain/licenses/policies/new', component: LicensePolicyFormPage, permission: 'supply_chain.write' },
     { path: '/supply-chain/licenses/policies/:id/edit', component: LicensePolicyFormPage, permission: 'supply_chain.write' },
     { path: '/supply-chain/licenses/policies/:id', component: LicensePolicyDetailPage, permission: 'supply_chain.read' },

@@ -858,7 +858,7 @@ Cypress.Commands.add('visitSupplyChainPage', (page: string) => {
     attestations: '/app/supply-chain/attestations',
     vendors: '/app/supply-chain/vendors',
     'vendor-risk': '/app/supply-chain/vendors/risk-dashboard',
-    'license-policies': '/app/supply-chain/licenses/policies',
+    'license-policies': '/app/supply-chain/licenses',
     'license-violations': '/app/supply-chain/licenses/violations',
   };
 

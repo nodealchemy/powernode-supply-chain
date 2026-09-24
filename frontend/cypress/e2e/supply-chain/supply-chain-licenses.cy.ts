@@ -19,7 +19,7 @@ describe('License Compliance Tests', () => {
 
   describe('License Policies List Page', () => {
     beforeEach(() => {
-      cy.assertPageReady('/app/supply-chain/licenses/policies', 'Policy');
+      cy.assertPageReady('/app/supply-chain/licenses', 'Policy');
     });
 
     it('should display license policies page', () => {
@@ -49,7 +49,7 @@ describe('License Compliance Tests', () => {
 
   describe('Create License Policy', () => {
     beforeEach(() => {
-      cy.assertPageReady('/app/supply-chain/licenses/policies');
+      cy.assertPageReady('/app/supply-chain/licenses');
     });
 
     it('should have create policy button', () => {
@@ -88,7 +88,7 @@ describe('License Compliance Tests', () => {
 
   describe('License Policy Detail Page', () => {
     it('should navigate to policy detail page', () => {
-      cy.assertPageReady('/app/supply-chain/licenses/policies');
+      cy.assertPageReady('/app/supply-chain/licenses');
       cy.get('table tbody tr, [data-testid*="policy-row"]').first().click();
       cy.url().should('match', /\/policies\/[^/]+$/);
     });
@@ -321,7 +321,7 @@ describe('License Compliance Tests', () => {
     it('should handle policies list loading error', () => {
       cy.testErrorHandling('/api/v1/supply_chain/license_policies', {
         statusCode: 500,
-        visitUrl: '/app/supply-chain/licenses/policies',
+        visitUrl: '/app/supply-chain/licenses',
       });
     });
 
@@ -335,7 +335,7 @@ describe('License Compliance Tests', () => {
 
   describe('Responsive Design', () => {
     it('should display policies page properly across viewports', () => {
-      cy.testResponsiveDesign('/app/supply-chain/licenses/policies', {
+      cy.testResponsiveDesign('/app/supply-chain/licenses', {
         checkContent: 'Policy',
       });
     });

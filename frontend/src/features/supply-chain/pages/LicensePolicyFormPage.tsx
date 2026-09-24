@@ -155,7 +155,7 @@ export const LicensePolicyFormPage: React.FC = () => {
         await createMutation.mutateAsync(submitData);
         showNotification('License policy created successfully', 'success');
       }
-      navigate('/app/supply-chain/licenses/policies');
+      navigate('/app/supply-chain/licenses');
     } catch (err) {
       showNotification(
         err instanceof Error ? err.message : 'Failed to save policy',
@@ -216,7 +216,7 @@ export const LicensePolicyFormPage: React.FC = () => {
         breadcrumbs={[
           { label: 'Dashboard', href: '/app' },
           { label: 'Supply Chain', href: '/app/supply-chain' },
-          { label: 'License Policies', href: '/app/supply-chain/licenses/policies' },
+          { label: 'License Policies', href: '/app/supply-chain/licenses' },
           { label: 'Edit' },
         ]}
       >
@@ -228,7 +228,7 @@ export const LicensePolicyFormPage: React.FC = () => {
   const breadcrumbs = [
     { label: 'Dashboard', href: '/app' },
     { label: 'Supply Chain', href: '/app/supply-chain' },
-    { label: 'License Policies', href: '/app/supply-chain/licenses/policies' },
+    { label: 'License Policies', href: '/app/supply-chain/licenses' },
     { label: isEditing ? 'Edit Policy' : 'New Policy' },
   ];
 
@@ -597,7 +597,7 @@ export const LicensePolicyFormPage: React.FC = () => {
           <Button
             type="button"
             variant="outline"
-            onClick={() => navigate('/app/supply-chain/licenses/policies')}
+            onClick={() => navigate('/app/supply-chain/licenses')}
             disabled={isSubmitting}
           >
             Cancel

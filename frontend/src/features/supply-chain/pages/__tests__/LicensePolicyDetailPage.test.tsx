@@ -373,7 +373,7 @@ describe('LicensePolicyDetailPage', () => {
       fireEvent.click(deleteButton);
 
       await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/licenses/policies');
+        expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/licenses');
       });
     });
   });

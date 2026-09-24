@@ -515,7 +515,7 @@ describe('LicensePolicyFormPage', () => {
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/licenses/policies');
+        expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/licenses');
       });
     });
 
@@ -570,7 +570,7 @@ describe('LicensePolicyFormPage', () => {
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/licenses/policies');
+        expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/licenses');
       });
     });
   });
@@ -587,7 +587,7 @@ describe('LicensePolicyFormPage', () => {
 
       fireEvent.click(cancelButton);
 
-      expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/licenses/policies');
+      expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/licenses');
     });
 
     it('disables Cancel button while submitting', () => {

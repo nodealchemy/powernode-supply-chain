@@ -52,7 +52,7 @@ export const LicensePolicyDetailPage: React.FC = () => {
         try {
           await deleteMutation.mutateAsync(id!);
           showNotification('License policy deleted successfully', 'success');
-          navigate('/app/supply-chain/licenses/policies');
+          navigate('/app/supply-chain/licenses');
         } catch (err) {
           showNotification(
             err instanceof Error ? err.message : 'Failed to delete policy',
@@ -100,7 +100,7 @@ export const LicensePolicyDetailPage: React.FC = () => {
         breadcrumbs={[
           { label: 'Dashboard', href: '/app' },
           { label: 'Supply Chain', href: '/app/supply-chain' },
-          { label: 'License Policies', href: '/app/supply-chain/licenses/policies' },
+          { label: 'License Policies', href: '/app/supply-chain/licenses' },
           { label: 'Details' },
         ]}
       >
@@ -112,7 +112,7 @@ export const LicensePolicyDetailPage: React.FC = () => {
   const breadcrumbs = [
     { label: 'Dashboard', href: '/app' },
     { label: 'Supply Chain', href: '/app/supply-chain' },
-    { label: 'License Policies', href: '/app/supply-chain/licenses/policies' },
+    { label: 'License Policies', href: '/app/supply-chain/licenses' },
     { label: policy.name },
   ];
 
