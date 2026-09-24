@@ -109,7 +109,7 @@ export const ContainerImageDetailPage: React.FC = () => {
         breadcrumbs={[
           { label: 'Dashboard', href: '/app' },
           { label: 'Supply Chain', href: '/app/supply-chain' },
-          { label: 'Container Images', href: '/app/supply-chain/container-images' },
+          { label: 'Container Images', href: '/app/supply-chain/containers' },
           { label: 'Details' },
         ]}
       >
@@ -121,7 +121,7 @@ export const ContainerImageDetailPage: React.FC = () => {
   const breadcrumbs = [
     { label: 'Dashboard', href: '/app' },
     { label: 'Supply Chain', href: '/app/supply-chain' },
-    { label: 'Container Images', href: '/app/supply-chain/container-images' },
+    { label: 'Container Images', href: '/app/supply-chain/containers' },
     { label: `${image.repository}:${image.tag}` },
   ];
 

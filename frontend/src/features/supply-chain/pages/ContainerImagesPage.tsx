@@ -27,7 +27,7 @@ export const ContainerImagesPage: React.FC = () => {
   });
 
   const handleRowClick = (image: ContainerImage) => {
-    navigate(`/app/supply-chain/container-images/${image.id}`);
+    navigate(`/app/supply-chain/containers/${image.id}`);
   };
 
   const { refreshAction } = useRefreshAction({

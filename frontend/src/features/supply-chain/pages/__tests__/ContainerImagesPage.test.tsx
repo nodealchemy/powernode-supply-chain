@@ -968,7 +968,7 @@ describe('ContainerImagesPage', () => {
 
       fireEvent.click(screen.getByTestId('row-0'));
 
-      expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/container-images/image-123');
+      expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/containers/image-123');
     });
 
     it('navigates with correct image id for different images', () => {
@@ -992,7 +992,7 @@ describe('ContainerImagesPage', () => {
 
       fireEvent.click(screen.getByTestId('row-1'));
 
-      expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/container-images/image-bbb');
+      expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/containers/image-bbb');
     });
   });
 

@@ -356,14 +356,14 @@ export function SupplyChainDashboardPage() {
       name: 'License Policies',
       description: 'License compliance rules',
       icon: Scale,
-      href: '/app/supply-chain/license-policies'
+      href: '/app/supply-chain/licenses'
     },
     {
       id: 'license-violations',
       name: 'License Violations',
       description: 'Policy violation tracking',
       icon: AlertTriangle,
-      href: '/app/supply-chain/license-violations'
+      href: '/app/supply-chain/licenses/violations'
     }
   ];
 
@@ -385,13 +385,16 @@ export function SupplyChainDashboardPage() {
             status={data.sbom_count > 0 ? 'success' : 'neutral'}
             onClick={() => navigate('/app/supply-chain/sboms')}
           />
+          {/* fc-26: no dedicated /vulnerabilities destination exists —
+              vulnerability data only surfaces inside container/SBOM detail
+              pages today — so this stat is informational only rather than
+              linking to a page that was never built. */}
           <StatCard
             title="Critical Vulnerabilities"
             value={data.critical_vulnerabilities}
             subtitle={`${data.high_vulnerabilities} high`}
             icon={AlertTriangle}
             status={data.critical_vulnerabilities > 0 ? 'error' : 'success'}
-            onClick={() => navigate('/app/supply-chain/vulnerabilities')}
           />
           <StatCard
             title="Container Images"

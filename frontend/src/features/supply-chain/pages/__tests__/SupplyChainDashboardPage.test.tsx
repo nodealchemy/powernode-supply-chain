@@ -354,13 +354,17 @@ describe('SupplyChainDashboardPage', () => {
       expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/sboms');
     });
 
-    it('navigates to vulnerabilities page when Critical Vulnerabilities card is clicked', () => {
+    // fc-26: no dedicated /vulnerabilities destination exists (nav-link-
+    // reachability's ALLOWED_UNBUILT flagged this as a genuinely missing
+    // page, not a rename) — this card is informational only now, not a link
+    // to a page that was never built.
+    it('does not navigate when Critical Vulnerabilities card is clicked (no destination page exists)', () => {
       renderPage();
 
       const vulnCard = screen.getByText('Critical Vulnerabilities').closest('div');
       fireEvent.click(vulnCard!);
 
-      expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/vulnerabilities');
+      expect(mockNavigate).not.toHaveBeenCalled();
     });
 
     it('navigates to containers page when Container Images card is clicked', () => {
@@ -765,7 +769,7 @@ describe('SupplyChainDashboardPage', () => {
       const link = screen.getByText('License compliance rules').closest('div');
       fireEvent.click(link!.parentElement!);
 
-      expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/license-policies');
+      expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/licenses');
     });
 
     it('navigates to license violations page when License Violations quick link is clicked', () => {
@@ -774,7 +778,7 @@ describe('SupplyChainDashboardPage', () => {
       const link = screen.getByText('Policy violation tracking').closest('div');
       fireEvent.click(link!.parentElement!);
 
-      expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/license-violations');
+      expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/licenses/violations');
     });
   });
 
