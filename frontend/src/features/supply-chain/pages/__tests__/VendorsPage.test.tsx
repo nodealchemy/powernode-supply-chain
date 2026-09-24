@@ -451,6 +451,22 @@ describe('VendorsPage', () => {
     });
   });
 
+  // fc-26: VendorRiskDashboardPage was a fully built, real-data page with no
+  // in-app link anywhere — reachable only by typing /app/supply-chain/vendors/
+  // risk-dashboard. Linked from this list page's action bar.
+  describe('Risk Dashboard functionality', () => {
+    it('shows Risk Dashboard button in page actions', () => {
+      renderPage();
+      expect(screen.getByText('Risk Dashboard')).toBeInTheDocument();
+    });
+
+    it('navigates to the risk dashboard when clicked', async () => {
+      renderPage();
+      await userEvent.click(screen.getByText('Risk Dashboard'));
+      expect(mockNavigate).toHaveBeenCalledWith('/app/supply-chain/vendors/risk-dashboard');
+    });
+  });
+
   describe('Start Assessment functionality', () => {
     beforeEach(() => {
       const vendors = [createMockVendor({ id: 'vendor-1', name: 'Test Vendor' })];

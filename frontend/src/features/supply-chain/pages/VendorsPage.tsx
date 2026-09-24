@@ -259,6 +259,16 @@ export const VendorsPage: React.FC = () => {
       actions={[
         refreshAction,
         {
+          // fc-26: the risk dashboard existed as a fully built, real-data
+          // page with no in-app link anywhere — reachable only by typing
+          // the URL.
+          id: 'risk-dashboard',
+          label: 'Risk Dashboard',
+          onClick: () => navigate('/app/supply-chain/vendors/risk-dashboard'),
+          variant: 'secondary',
+          icon: Shield,
+        },
+        {
           id: 'add-vendor',
           label: 'Add Vendor',
           onClick: () => setShowAddModal(true),
