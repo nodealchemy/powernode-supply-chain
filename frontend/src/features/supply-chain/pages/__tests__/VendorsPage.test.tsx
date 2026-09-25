@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import { VendorsPage } from '../VendorsPage';
 import { useVendors, useCreateVendor, useStartAssessment } from '../../hooks/useVendorRisk';
-import { createMockVendor, createMockPagination } from '../../testing/mockFactories';
+import { createMockVendor, createMockPagination } from '../../tests/mockFactories';
 
 jest.mock('../../hooks/useVendorRisk');
 jest.mock('@/shared/hooks/useNotifications', () => ({

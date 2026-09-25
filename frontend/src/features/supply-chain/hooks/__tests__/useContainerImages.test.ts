@@ -12,7 +12,7 @@ import {
   createMockContainerImageDetail,
   createMockPagination,
   createMockVulnerabilityScan,
-} from '../../testing/mockFactories';
+} from '../../tests/mockFactories';
 
 jest.mock('../../services/containerImagesApi');
 const mockApi = containerImagesApi as jest.Mocked<typeof containerImagesApi>;

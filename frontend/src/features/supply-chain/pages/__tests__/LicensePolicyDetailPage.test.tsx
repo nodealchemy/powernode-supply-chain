@@ -7,7 +7,7 @@ import {
   useDeleteLicensePolicy,
   useToggleLicensePolicyActive,
 } from '../../hooks/useLicenseCompliance';
-import { createMockLicensePolicy } from '../../testing/mockFactories';
+import { createMockLicensePolicy } from '../../tests/mockFactories';
 
 jest.mock('../../hooks/useLicenseCompliance');
 jest.mock('@/shared/hooks/useNotifications', () => ({

@@ -11,7 +11,7 @@ import { containerImagesApi } from '../../services/containerImagesApi';
 import {
   createMockContainerImageDetail,
   createMockVulnerabilityScan,
-} from '../../testing/mockFactories';
+} from '../../tests/mockFactories';
 
 jest.mock('../../hooks/useContainerImages');
 jest.mock('../../services/containerImagesApi');

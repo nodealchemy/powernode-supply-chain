@@ -7,7 +7,7 @@ import {
   useResolveViolation,
   useGrantViolationException,
 } from '../../hooks/useLicenseCompliance';
-import { createMockLicenseViolation, createMockPagination } from '../../testing/mockFactories';
+import { createMockLicenseViolation, createMockPagination } from '../../tests/mockFactories';
 
 jest.mock('../../hooks/useLicenseCompliance');
 

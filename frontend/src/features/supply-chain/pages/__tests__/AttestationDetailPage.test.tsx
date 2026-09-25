@@ -8,7 +8,7 @@ import {
   createMockAttestationDetail,
   createMockBuildProvenance,
   createMockSigningKey,
-} from '../../testing/mockFactories';
+} from '../../tests/mockFactories';
 
 // Mock dependencies
 jest.mock('../../hooks/useAttestations');

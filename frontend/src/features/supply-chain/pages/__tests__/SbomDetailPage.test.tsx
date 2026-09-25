@@ -18,7 +18,7 @@ import {
   createMockSbomComponent,
   createMockSbomVulnerability,
   createMockPagination,
-} from '../../testing/mockFactories';
+} from '../../tests/mockFactories';
 
 // Mock dependencies
 jest.mock('../../services/sbomsApi');

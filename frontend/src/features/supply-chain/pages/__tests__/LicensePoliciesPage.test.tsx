@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { BreadcrumbProvider } from '@/shared/hooks/BreadcrumbContext';
 import { LicensePoliciesPage } from '../LicensePoliciesPage';
 import { useLicensePolicies, useDeleteLicensePolicy, useToggleLicensePolicyActive } from '../../hooks/useLicenseCompliance';
-import { createMockLicensePolicy, createMockPagination } from '../../testing/mockFactories';
+import { createMockLicensePolicy, createMockPagination } from '../../tests/mockFactories';
 
 jest.mock('../../hooks/useLicenseCompliance');
 jest.mock('@/shared/hooks/useNotifications', () => ({

@@ -8,7 +8,7 @@
 import { renderHook, waitFor, act } from '@testing-library/react';
 import { useSupplyChainDashboard } from '../useSupplyChainDashboard';
 import { supplyChainApi } from '../../services/supplyChainApi';
-import { createMockDashboardData } from '../../testing/mockFactories';
+import { createMockDashboardData } from '../../tests/mockFactories';
 
 // Mock the supplyChainApi service
 jest.mock('../../services/supplyChainApi');

@@ -8,7 +8,7 @@ import {
   useGrantViolationException,
   useRequestException,
 } from '../../hooks/useLicenseCompliance';
-import { createMockLicenseViolation } from '../../testing/mockFactories';
+import { createMockLicenseViolation } from '../../tests/mockFactories';
 
 jest.mock('../../hooks/useLicenseCompliance');
 jest.mock('@/shared/hooks/useNotifications', () => ({

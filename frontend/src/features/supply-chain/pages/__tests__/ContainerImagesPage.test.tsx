@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ContainerImagesPage } from '../ContainerImagesPage';
 import { useContainerImages } from '../../hooks/useContainerImages';
-import { createMockContainerImage, createMockPagination } from '../../testing/mockFactories';
+import { createMockContainerImage, createMockPagination } from '../../tests/mockFactories';
 
 jest.mock('../../hooks/useContainerImages');
 

@@ -5,7 +5,7 @@ import { useAttestations } from '../../hooks/useAttestations';
 import {
   createMockAttestation,
   createMockPagination,
-} from '../../testing/mockFactories';
+} from '../../tests/mockFactories';
 
 // Mock dependencies
 jest.mock('../../hooks/useAttestations');

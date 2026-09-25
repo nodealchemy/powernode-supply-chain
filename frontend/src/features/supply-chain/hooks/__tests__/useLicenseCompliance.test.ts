@@ -19,7 +19,7 @@ import {
   createMockLicensePolicy,
   createMockLicenseViolation,
   createMockPagination,
-} from '../../testing/mockFactories';
+} from '../../tests/mockFactories';
 import type {
   CreateLicensePolicyData,
 } from '../../services/licenseComplianceApi';

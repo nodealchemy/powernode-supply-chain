@@ -31,7 +31,7 @@ import {
   createMockRiskAssessment,
   createMockQuestionnaire,
   createMockPagination,
-} from '../../testing/mockFactories';
+} from '../../tests/mockFactories';
 import type { RiskAssessment, Questionnaire } from '../../types/vendor';
 
 // Mock the vendorRiskApi service

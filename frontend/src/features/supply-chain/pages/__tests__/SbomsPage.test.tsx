@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { SbomsPage } from '../SbomsPage';
 import { useSboms } from '../../hooks/useSboms';
 import { sbomsApi } from '../../services/sbomsApi';
-import { createMockSbom, createMockPagination } from '../../testing/mockFactories';
+import { createMockSbom, createMockPagination } from '../../tests/mockFactories';
 
 // Mock dependencies
 jest.mock('../../hooks/useSboms');

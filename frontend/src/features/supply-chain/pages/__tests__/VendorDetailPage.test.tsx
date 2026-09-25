@@ -8,7 +8,7 @@ import {
   useStartAssessment,
   useSendQuestionnaire,
 } from '../../hooks/useVendorRisk';
-import { createMockVendorDetail } from '../../testing/mockFactories';
+import { createMockVendorDetail } from '../../tests/mockFactories';
 
 jest.mock('../../hooks/useVendorRisk');
 jest.mock('@/shared/hooks/useNotifications', () => ({

@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { SupplyChainDashboardPage } from '../SupplyChainDashboardPage';
 import { useSupplyChainDashboard } from '../../hooks/useSupplyChainDashboard';
-import { createMockDashboardData } from '../../testing/mockFactories';
+import { createMockDashboardData } from '../../tests/mockFactories';
 
 jest.mock('../../hooks/useSupplyChainDashboard');
 jest.mock('@/shared/components/layout/PageContainer', () => ({

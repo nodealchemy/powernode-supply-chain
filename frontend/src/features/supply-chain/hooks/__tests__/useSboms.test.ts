@@ -20,7 +20,7 @@ import {
   createMockSbomList,
   createMockPagination,
   createMockSbomVulnerability,
-} from '../../testing/mockFactories';
+} from '../../tests/mockFactories';
 
 jest.mock('../../services/sbomsApi');
 const mockApi = sbomsApi as jest.Mocked<typeof sbomsApi>;
