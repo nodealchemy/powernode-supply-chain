@@ -1,5 +1,5 @@
-import api from '@/shared/services/api';
-import { FileObject, FileUploadProgress } from '@/features/content/files/services/filesApi';
+import { filesApi } from '@/features/content/files/services/filesApi';
+import type { FileObject, FileUploadProgress } from '@/features/content/files/services/filesApi';
 
 export type SupplyChainFileCategory =
   | 'sbom_export'
@@ -24,6 +24,8 @@ export interface SupplyChainFileUploadOptions {
   tags?: string[];
 }
 
+// A thin wrapper over core filesApi, which owns the /files endpoint family.
+// It only pins the supply-chain attachable types and file categories.
 export const supplyChainFilesApi = {
   /**
    * Get files attached to a supply chain entity
@@ -33,14 +35,11 @@ export const supplyChainFilesApi = {
     attachableId: string,
     category?: SupplyChainFileCategory
   ): Promise<{ files: FileObject[] }> {
-    const response = await api.get('/files', {
-      params: {
-        attachable_type: attachableType,
-        attachable_id: attachableId,
-        ...(category && { category })
-      }
+    return filesApi.getFiles({
+      attachable_type: attachableType,
+      attachable_id: attachableId,
+      ...(category && { category })
     });
-    return response.data.data;
   },
 
   /**
@@ -52,68 +51,33 @@ export const supplyChainFilesApi = {
     file: File,
     options: SupplyChainFileUploadOptions
   ): Promise<FileObject> {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('filename', file.name);
-    formData.append('attachable_type', attachableType);
-    formData.append('attachable_id', attachableId);
-    formData.append('category', options.category);
-
-    if (options.visibility) formData.append('visibility', options.visibility);
-    if (options.description) formData.append('description', options.description);
-    if (options.metadata) formData.append('metadata', JSON.stringify(options.metadata));
-    if (options.tags) formData.append('tags', options.tags.join(','));
-
-    const response = await api.post('/files/upload', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-      onUploadProgress: (progressEvent) => {
-        if (options.onProgress && progressEvent.total) {
-          const percentage = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-          options.onProgress({
-            loaded: progressEvent.loaded,
-            total: progressEvent.total,
-            percentage
-          });
-        }
-      }
+    return filesApi.uploadFile(file, {
+      ...options,
+      attachableType,
+      attachableId
     });
-
-    return response.data.data.file;
   },
 
   /**
    * Delete a file
    */
   async deleteFile(fileId: string, permanent: boolean = false): Promise<void> {
-    await api.delete(`/files/${fileId}`, {
-      params: { permanent }
-    });
+    return filesApi.deleteFile(fileId, permanent);
   },
 
   /**
    * Download a file
    */
   async downloadFile(fileId: string, filename?: string): Promise<void> {
-    const response = await api.get(`/files/${fileId}/download`, {
-      responseType: 'blob'
-    });
-
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', filename || 'download');
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.URL.revokeObjectURL(url);
+    return filesApi.downloadFile(fileId, filename);
   },
 
   /**
    * Get download URL for a file
    */
   async getDownloadUrl(fileId: string): Promise<string> {
-    const response = await api.get(`/files/${fileId}`);
-    return response.data.data.file.urls?.download || '';
+    const file = await filesApi.getFile(fileId);
+    return file.urls?.download || '';
   },
 
   // Vendor-specific helpers
