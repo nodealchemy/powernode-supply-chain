@@ -1,0 +1,10 @@
+[
+  {
+    "path": "extensions/supply-chain/frontend/src/features/supply-chain/pages/SbomDetailPage.tsx",
+    "note": "untracked — discovered by core's P15 path-addressable-tabs guard at its introduction (fc-46); not yet a tracked conversion task"
+  },
+  {
+    "path": "extensions/supply-chain/frontend/src/features/supply-chain/pages/VendorDetailPage.tsx",
+    "note": "untracked — discovered by core's P15 path-addressable-tabs guard at its introduction (fc-46); not yet a tracked conversion task"
+  }
+]
