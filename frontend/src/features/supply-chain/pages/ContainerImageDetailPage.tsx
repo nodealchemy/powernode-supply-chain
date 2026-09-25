@@ -156,7 +156,7 @@ export const ContainerImageDetailPage: React.FC = () => {
     { id: 'overview', label: 'Overview' },
     { id: 'vulnerabilities', label: 'Vulnerabilities' },
     { id: 'sbom', label: 'SBOM' },
-    { id: 'policies', label: 'Policies' },
+    { id: 'policies', label: 'Policy Evaluations' },
   ];
 
   const renderOverview = () => (

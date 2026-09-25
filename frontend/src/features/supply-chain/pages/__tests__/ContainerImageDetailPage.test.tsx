@@ -505,7 +505,7 @@ describe('ContainerImageDetailPage', () => {
       expect(screen.getByTestId('tab-overview')).toHaveTextContent('Overview');
       expect(screen.getByTestId('tab-vulnerabilities')).toHaveTextContent('Vulnerabilities');
       expect(screen.getByTestId('tab-sbom')).toHaveTextContent('SBOM');
-      expect(screen.getByTestId('tab-policies')).toHaveTextContent('Policies');
+      expect(screen.getByTestId('tab-policies')).toHaveTextContent('Policy Evaluations');
     });
 
     it('shows overview tab as active by default', () => {
