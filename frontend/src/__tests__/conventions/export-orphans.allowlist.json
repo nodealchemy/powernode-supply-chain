@@ -1,0 +1,47 @@
+[
+  {
+    "path": "extensions/supply-chain/frontend/src/features/supply-chain/hooks/useAttestations.ts",
+    "name": "useCreateAttestation",
+    "reason": "unused export; swept by the export-orphan offers"
+  },
+  {
+    "path": "extensions/supply-chain/frontend/src/features/supply-chain/hooks/useLicenseCompliance.ts",
+    "name": "useApproveException",
+    "reason": "unused export; swept by the export-orphan offers"
+  },
+  {
+    "path": "extensions/supply-chain/frontend/src/features/supply-chain/hooks/useLicenseCompliance.ts",
+    "name": "useRejectException",
+    "reason": "unused export; swept by the export-orphan offers"
+  },
+  {
+    "path": "extensions/supply-chain/frontend/src/features/supply-chain/hooks/useSboms.ts",
+    "name": "useSbom",
+    "reason": "unused export; swept by the export-orphan offers"
+  },
+  {
+    "path": "extensions/supply-chain/frontend/src/features/supply-chain/hooks/useSboms.ts",
+    "name": "useSbomStatistics",
+    "reason": "unused export; swept by the export-orphan offers"
+  },
+  {
+    "path": "extensions/supply-chain/frontend/src/features/supply-chain/hooks/useSboms.ts",
+    "name": "useUnsuppressVulnerability",
+    "reason": "unused export; swept by the export-orphan offers"
+  },
+  {
+    "path": "extensions/supply-chain/frontend/src/features/supply-chain/hooks/useVendorRisk.ts",
+    "name": "useDeleteVendor",
+    "reason": "unused export; swept by the export-orphan offers"
+  },
+  {
+    "path": "extensions/supply-chain/frontend/src/features/supply-chain/services/attestationsApi.ts",
+    "name": "CreateAttestationRequest",
+    "reason": "found by H1 fix (an export statement is no longer counted as its own use); pending its sweep"
+  },
+  {
+    "path": "extensions/supply-chain/frontend/src/features/supply-chain/types/dashboard.ts",
+    "name": "SupplyChainDashboard",
+    "reason": "unused exported type; swept by the export-orphan offers"
+  }
+]
