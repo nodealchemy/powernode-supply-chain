@@ -59,8 +59,7 @@ module PowernodeSupplyChain
       config.after_initialize do
         Powernode::ExtensionRegistry.register(
           slug: "supply-chain",
-          engine: PowernodeSupplyChain::Engine,
-          version: PowernodeSupplyChain::VERSION
+          engine: PowernodeSupplyChain::Engine
         )
       end
     end
