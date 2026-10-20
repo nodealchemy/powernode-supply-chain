@@ -11,8 +11,15 @@ RSpec.describe "Api::V1::SupplyChain::SigningKeys", type: :request do
     create(:user, account: account, permissions: [ "supply_chain.read" ])
   end
 
-  # User with both read and write permissions
+  # Key custodian: read + write + signing_keys.manage. Key create/update/delete/rotate/revoke
+  # require the dedicated custodian permission, not just supply_chain.write (separation of duties).
   let!(:read_write_user) do
+    create(:user, account: account,
+                  permissions: [ "supply_chain.read", "supply_chain.write", "supply_chain.signing_keys.manage" ])
+  end
+
+  # Data operator: read + write but NOT the custodian permission
+  let!(:write_only_user) do
     create(:user, account: account, permissions: [ "supply_chain.read", "supply_chain.write" ])
   end
 
@@ -388,7 +395,7 @@ RSpec.describe "Api::V1::SupplyChain::SigningKeys", type: :request do
              headers: auth_headers_for(read_only_user),
              as: :json
 
-        expect_error_response("Insufficient permissions to manage supply chain data", 403)
+        expect_error_response("Insufficient permissions to manage signing keys", 403)
       end
 
       it "returns forbidden error for regular user" do
@@ -397,7 +404,7 @@ RSpec.describe "Api::V1::SupplyChain::SigningKeys", type: :request do
              headers: auth_headers_for(regular_user),
              as: :json
 
-        expect_error_response("Insufficient permissions to manage supply chain data", 403)
+        expect_error_response("Insufficient permissions to manage signing keys", 403)
       end
     end
   end
@@ -493,7 +500,7 @@ RSpec.describe "Api::V1::SupplyChain::SigningKeys", type: :request do
               headers: auth_headers_for(read_only_user),
               as: :json
 
-        expect_error_response("Insufficient permissions to manage supply chain data", 403)
+        expect_error_response("Insufficient permissions to manage signing keys", 403)
       end
     end
   end
@@ -562,7 +569,7 @@ RSpec.describe "Api::V1::SupplyChain::SigningKeys", type: :request do
                headers: auth_headers_for(read_only_user),
                as: :json
 
-        expect_error_response("Insufficient permissions to manage supply chain data", 403)
+        expect_error_response("Insufficient permissions to manage signing keys", 403)
       end
     end
   end
@@ -633,7 +640,7 @@ RSpec.describe "Api::V1::SupplyChain::SigningKeys", type: :request do
              headers: auth_headers_for(read_only_user),
              as: :json
 
-        expect_error_response("Insufficient permissions to manage supply chain data", 403)
+        expect_error_response("Insufficient permissions to manage signing keys", 403)
       end
     end
   end
@@ -707,7 +714,7 @@ RSpec.describe "Api::V1::SupplyChain::SigningKeys", type: :request do
              headers: auth_headers_for(read_only_user),
              as: :json
 
-        expect_error_response("Insufficient permissions to manage supply chain data", 403)
+        expect_error_response("Insufficient permissions to manage signing keys", 403)
       end
     end
   end
@@ -763,6 +770,40 @@ RSpec.describe "Api::V1::SupplyChain::SigningKeys", type: :request do
 
         expect_error_response("Insufficient permissions to view supply chain data", 403)
       end
+    end
+  end
+
+  describe "custodian separation of duties" do
+    let!(:signing_key) { create(:supply_chain_signing_key, account: account) }
+
+    it "forbids a supply_chain.write user without signing_keys.manage from every key mutation" do
+      headers = auth_headers_for(write_only_user)
+
+      expect do
+        post "/api/v1/supply_chain/signing_keys", params: { signing_key: { name: "x", key_type: "cosign" } }, headers: headers, as: :json
+      end.not_to change(SupplyChain::SigningKey, :count)
+      expect_error_response("Insufficient permissions to manage signing keys", 403)
+
+      patch "/api/v1/supply_chain/signing_keys/#{signing_key.id}", params: { signing_key: { name: "x" } }, headers: headers, as: :json
+      expect_error_response("Insufficient permissions to manage signing keys", 403)
+
+      delete "/api/v1/supply_chain/signing_keys/#{signing_key.id}", headers: headers, as: :json
+      expect_error_response("Insufficient permissions to manage signing keys", 403)
+
+      post "/api/v1/supply_chain/signing_keys/#{signing_key.id}/rotate", headers: headers, as: :json
+      expect_error_response("Insufficient permissions to manage signing keys", 403)
+
+      post "/api/v1/supply_chain/signing_keys/#{signing_key.id}/revoke", headers: headers, as: :json
+      expect_error_response("Insufficient permissions to manage signing keys", 403)
+
+      signing_key.reload
+      expect(signing_key.status).to eq("active")
+      expect(signing_key.name).not_to eq("x")
+    end
+
+    it "still lets a supply_chain.write user read key metadata" do
+      get "/api/v1/supply_chain/signing_keys/#{signing_key.id}", headers: auth_headers_for(write_only_user), as: :json
+      expect_success_response
     end
   end
 
@@ -851,7 +892,7 @@ RSpec.describe "Api::V1::SupplyChain::SigningKeys", type: :request do
            params: { signing_key: { name: "Test" } },
            headers: auth_headers_for(read_only_user),
            as: :json
-      expect_error_response("Insufficient permissions to manage supply chain data", 403)
+      expect_error_response("Insufficient permissions to manage signing keys", 403)
     end
 
     it "prevents read-only user from updating signing keys" do
@@ -859,28 +900,28 @@ RSpec.describe "Api::V1::SupplyChain::SigningKeys", type: :request do
             params: { signing_key: { name: "New Name" } },
             headers: auth_headers_for(read_only_user),
             as: :json
-      expect_error_response("Insufficient permissions to manage supply chain data", 403)
+      expect_error_response("Insufficient permissions to manage signing keys", 403)
     end
 
     it "prevents read-only user from deleting signing keys" do
       delete "/api/v1/supply_chain/signing_keys/#{signing_key.id}",
              headers: auth_headers_for(read_only_user),
              as: :json
-      expect_error_response("Insufficient permissions to manage supply chain data", 403)
+      expect_error_response("Insufficient permissions to manage signing keys", 403)
     end
 
     it "prevents read-only user from rotating signing keys" do
       post "/api/v1/supply_chain/signing_keys/#{signing_key.id}/rotate",
            headers: auth_headers_for(read_only_user),
            as: :json
-      expect_error_response("Insufficient permissions to manage supply chain data", 403)
+      expect_error_response("Insufficient permissions to manage signing keys", 403)
     end
 
     it "prevents read-only user from revoking signing keys" do
       post "/api/v1/supply_chain/signing_keys/#{signing_key.id}/revoke",
            headers: auth_headers_for(read_only_user),
            as: :json
-      expect_error_response("Insufficient permissions to manage supply chain data", 403)
+      expect_error_response("Insufficient permissions to manage signing keys", 403)
     end
   end
 end
